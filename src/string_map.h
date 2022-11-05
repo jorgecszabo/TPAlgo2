@@ -48,7 +48,6 @@ public:
     /**
     BORRAR
     * Dada un elemento del conjunto, lo borra.
-    * PRE: La clave está definida.
     --PRODUCE ALIASING--
     **/
     void borrar(const Palabra& key);
@@ -78,8 +77,10 @@ private:
     int _size;
     int _tamAlfabeto;
     int _longPalMasLarga;
-    int cantidadHijos(Nodo*);
+    int cantidadHijos(const Nodo*) const;
     void borrarNodo(Nodo*);
+    int altura(const Nodo*) const;
+    bool noHayNadaAbajo(Nodo*) const;
     Nodo* copiarNodo(Nodo* n) {
         if (n == nullptr)
             return nullptr;

@@ -53,7 +53,7 @@ bool string_map::pertenece(const Palabra& clave) const{
     else return false;
 }
 
-int string_map::cantidadHijos(Nodo* n) {
+int string_map::cantidadHijos(const Nodo* n) const{
     if (n == nullptr)
         return 0;
     else {
@@ -67,24 +67,51 @@ int string_map::cantidadHijos(Nodo* n) {
     }
 }
 
+int string_map::altura(const string_map::Nodo * n) const {
+    if (n == nullptr) {
+        return 0;
+    } else {
+        const int size = n->siguientes.size();
+        int maxAltura = 0;
+        for (int i = 0; i < size; i++) {
+            int alturaActual = 1 + altura(n->siguientes[i]);
+            if (alturaActual > maxAltura)
+                maxAltura = alturaActual;
+        }
+        return maxAltura;
+    }
+}
+
 void string_map::borrar(const Palabra& clave) {
+    if (!pertenece(clave))
+        return;
     Nodo* actual = _raiz;
+    Nodo* anterior = nullptr;
     Nodo* ultimo = nullptr;
     int idx;
+    int ultIdx;
     for (int i = 0; i < clave.size(); i++) {
         if (cantidadHijos(actual) > 1 || actual->finPalabra == true) {
             ultimo = actual;
-            idx = i;
+            idx = ord(clave[i]);
         }
+        anterior = actual;
+        ultIdx = ord(clave[i]);
         actual = actual->siguientes[ord(clave[i])];
     }
     actual->finPalabra = false;
-    if (ultimo != nullptr) {
+    if (ultimo != nullptr && cantidadHijos(actual) == 0) {
         Nodo* aBorrar = ultimo->siguientes[idx];
         ultimo->siguientes[idx] = nullptr;
         borrarNodo(aBorrar);
+    } else if (anterior != nullptr && cantidadHijos(actual) == 0) {
+        Nodo* aBorrar = anterior->siguientes[ultIdx];
+        anterior->siguientes[ultIdx] = nullptr;
+        borrarNodo(aBorrar);
     }
     _size--;
+    if (clave.size() == _longPalMasLarga)
+        _longPalMasLarga = altura(_raiz);
 }
 
 int string_map::cardinal() const{

@@ -3,10 +3,22 @@
 #include "../src/Tipos.h"
 #include "../src/Letra.h"
 #include "utils/PalabrasComunes.h"
-
+#include <set>
 TEST(string_map_test, vacio) {
 	string_map conj(TAMANIO_ALFABETO);
 	EXPECT_TRUE(conj.vacio());
+}
+
+TEST(string_map_test, miniTest) {
+    string_map conj(TAMANIO_ALFABETO);
+    conj.agregar({'a', 'b', 'a'});
+    conj.agregar({'a'});
+    EXPECT_TRUE(conj.pertenece({'a'}));
+    EXPECT_TRUE(conj.pertenece({'a', 'b', 'a'}));
+    conj.borrar({'a', 'b', 'a'});
+    EXPECT_TRUE(conj.pertenece({'a'}));
+    EXPECT_FALSE(conj.pertenece({'a', 'b', 'a'}));
+    conj.borrar({'a'}); // Esto es para un breakpoint
 }
 
 TEST(string_map_test, palabras) {
@@ -15,20 +27,22 @@ TEST(string_map_test, palabras) {
         masLarga = palabra.size() > masLarga ? palabra.size() : masLarga;
     }
 	string_map conj(TAMANIO_ALFABETO);
+    set<Palabra> conjRef;
 	for (Palabra palabra : palabrasComunes) {
 		conj.agregar(palabra);
+        conjRef.insert(palabra);
 	}
 	for (Palabra palabra : palabrasComunes) {
 		EXPECT_TRUE(conj.pertenece(palabra));
 	}
-	for (Palabra palabra : palabrasComunes) {
-		if (conj.pertenece(palabra)) // Para cumplir la precondición :)
+    EXPECT_EQ(conj.palMasLarga(), masLarga);
+    EXPECT_EQ(conj.cardinal(), conjRef.size());
+    for (Palabra palabra : palabrasComunes) {
             conj.borrar(palabra);
 	}
 	for (Palabra palabra : palabrasComunes) {
 		EXPECT_FALSE(conj.pertenece(palabra));
 	}
-    EXPECT_EQ(conj.palMasLarga(), masLarga);
 }
 
 TEST(string_map_test, copia) {
@@ -39,7 +53,7 @@ TEST(string_map_test, copia) {
     string_map conj2(TAMANIO_ALFABETO);
     conj2 = conj1;
     for (Palabra palabra : palabrasComunes) {
-        if (conj1.pertenece(palabra)) // Para cumplir la precondición :)
+        if (conj1.pertenece(palabra))
             conj1.borrar(palabra);
     }
     for (Palabra palabra : palabrasComunes) {

@@ -12,7 +12,6 @@ colaNotificaciones::colaNotificaciones(int k) {
         list<elem> l;
         personal.push_back(l);
     }
-    //Inicializo la maraña de iteradores
     vector<int> ultimoGeneral(k);
     vector<int> ultimoPersonal(k);
 }

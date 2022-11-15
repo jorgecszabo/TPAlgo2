@@ -22,7 +22,7 @@ bool Variante::palabraLegitima(const Palabra &palabra) const {
 }
 
 Nat Variante::palabraMasLarga() {
-    return palMasLarga(_legitimas);
+    return _legitimas.palMasLarga();
 }
 
 

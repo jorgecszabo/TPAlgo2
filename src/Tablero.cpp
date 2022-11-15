@@ -10,7 +10,11 @@ Tablero::Tablero(int n) {
         }
         tab.push_back(fila);
     }
+    _tablero = tab;
+}
 
+Tablero::Tablero() {
+    vector<vector<tuple<bool, Letra>>> tab;
     _tablero = tab;
 }
 

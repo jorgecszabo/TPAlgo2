@@ -9,7 +9,8 @@ class Tablero {
     public:
     //Crea nuevo Tablero.
     Tablero(int);
-
+    //Crea nuevo Tablero vacío.
+    Tablero();
     //Devuelve el tamaño del tablero.
     Nat tamano();
 

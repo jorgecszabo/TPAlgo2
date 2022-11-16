@@ -1,4 +1,5 @@
 #include "Juego.h"
+using namespace std
 
 Juego::Juego(Nat k, Variante& v, const Repositorio& r) {
     Tablero _tablero(v.tamanoTablero());
@@ -17,8 +18,121 @@ void Juego::ubicar(const Ocurrencia &o) {
     for (tuple<Nat, Nat, Letra> l : o) {
         _tablero.ponerLetra(get<0>(l), get<1>(l), get<2>(l));
     }
-    //FALTA CALCULAR PUNTOS!!!
+    int jugador = _turno;
+    _puntaje[jugador] = _puntaje[jugador] + puntosGanados(o, _tablero, _variante);
 }
+
+
+
+//Auxiliares de Ubicar
+
+Nat Juego::puntosGanados(const Ocurrencia &o, Tablero t, Variante* v){
+    if (o.empty()) {
+        return 0;
+    }else{
+        if (esHorizontal(o)){
+            return sumarHorizontal(o) + sumarTodasVerticales(o);
+        }else{
+            return sumarVertical(o) + sumarTodasHorizontales(o);
+        }
+    }
+}
+
+bool Juego::esHorizontal(const Ocurrencia &o){
+    if(o.size == 1 || get<1>(o.begin()) == get<1>(o.end())){
+        return true;
+        //acá en el pseudocodigo comparábamos el siguiente del iterador con el siguiente de avanzar(it),
+        //como estábamos comparando para ver si es horizontal me pareció lo mismo?
+    }else{
+        return false;
+    }
+}
+
+Nat Juego::sumarHorizontal(const Ocurrencia &o, Tablero t, Variante* v){
+    int res = 0;
+
+    Ocurrencia::iterator it = o.begin();
+    int col = get<0>(it);
+    int fila = get<1>(it);
+    while(col < t.tamano() && hayLetra(col,fila)){
+        res = res + v.puntajeLetra(t.letra(col,fila));
+        col++;
+    }
+
+    col = get<0>(it) - 1;
+    while(0 < col && hayLetra(col,fila)){
+        res = res + v.puntajeLetra(t.letra(col,fila));
+        col--;
+    }
+}
+
+Nat Juego::sumarVertical(const Ocurrencia &o, Tablero t, Variante *v) {
+    int res = 0;
+
+    Ocurrencia::iterator it = o.begin();
+    int col = get<0>(it);
+    int fila = get<1>(it);
+
+    while(fila < t.tamano() && hayLetra(col,fila)){
+        res = res + v.puntajeLetra(t.letra(col,fila));
+        col++;
+    }
+
+    fila = get<1>(it) - 1;
+    while(0 < fila && hayLetra(col,fila)){
+        res = res + v.puntajeLetra(t.letra(col,fila));
+        fila--;
+    }
+    return res;
+}
+
+Nat Juego::sumarTodasHorizontales(const Ocurrencia &o, Tablero t, Variante* v){
+    int res = 0;
+    int col;
+    int fila;
+
+    for(x : o){
+        col = get<0>(x);
+        fila = get<1>(x);
+        while(col < t.tamano() && hayLetra(col,fila)){
+            res = res + v.puntajeLetra(t.letra(col,fila));
+            col++;
+        }
+
+        col = get<0>(x) - 1;
+        while(0 < col && hayLetra(col,fila)){
+            res = res + v.puntajeLetra(t.letra(col,fila));
+            col--;
+        }
+
+    }
+}
+
+
+Nat Juego::sumarTodasVerticales(const Ocurrencia &o, Tablero t, Variante* v){
+    int res = 0;
+    int col;
+    int fila;
+
+    for(x : o){
+        col = get<0>(x);
+        fila = get<1>(x);
+        while(fila < t.tamano() && hayLetra(col,fila)){
+            res = res + v.puntajeLetra(t.letra(col,fila));
+            fila++;
+        }
+
+        fila = get<1>(x) - 1;
+        while(0 < fila && hayLetra(col,fila)){
+            res = res + v.puntajeLetra(t.letra(col,fila));
+            fila--;
+        }
+
+    }
+}
+//
+
+
 
 IdCliente Juego::turno() {
     return _turno;
@@ -139,12 +253,23 @@ bool Juego::jugadaValida(const Ocurrencia &o, IdCliente cid) {
     } else return false;
 }
 
-bool hayLetra(Nat x, Nat y);
 
-Letra letra(Nat i, Nat j);
+bool Juego::hayLetra(Nat x, Nat y){
+    return _tablero.hayLetra(x,y);
+}
 
-Nat puntaje(IdCliente id);
+Letra Juego::letra(Nat i, Nat j){
+    return _tablero.letra(i,j);
+}
 
-Nat cantFicha(IdCliente id, Letra l);
+Nat Juego::puntaje(IdCliente id){
+    return _puntaje[id];
+}
 
-Nat cantJugadores();
+Nat Juego::cantFicha(IdCliente id, Letra l){
+    return _fichasxJugador[id][ord(l)];
+}
+
+Nat Juego::cantJugadores(){
+    return _fichasxJugador.size();
+}

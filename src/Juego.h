@@ -3,15 +3,14 @@
 
 #include "Tablero.h"
 #include "Notificacion.h"
-#include "Fachada_Variante.h"
+#include "Variante.h"
 #include <queue>
 
 class Juego {
 public:
     /*  Construye un juego a partir de la cantidad de jugadores k, la variante v y el repositorio r  */
     /*  Complejidad: O(tamanoTab**2 + ALPHABET_SIZE*cantJugadores + cantFichas*cantJugadores)  */
-    Juego(Nat k, const Fachada_Variante& v, const Repositorio& r);
-    Juego();
+    Juego(Nat k, Variante& v, const Repositorio& r);
 
     /*  Ubica una Ocurrencia o en el juego  */
     /*  Complejidad: O(m)  -   donde m es el numero de fichas que se ubican  */
@@ -23,7 +22,7 @@ public:
 
     /*  Retorna informacion sobre la variante del juego  */
     /*  Complejidad: O(1)  */
-     const Fachada_Variante& variante();
+    Variante& variante();
 
     /*  Determina si una jugada es valida o no  */
     /*  Complejidad: O(Lmax ** 2)  */
@@ -48,11 +47,16 @@ public:
 
     Nat cantJugadores();
 
+    /* Devuelve el tablero del juego. */
+    Tablero tablero();
+
+    Repositorio repositorio();
+
 private:
     Tablero _tablero;
     vector<vector<Nat>> _fichasxJugador;
     Nat _turno;
-    const Fachada_Variante* _variante;
+    Variante* _variante;
     vector<Nat> _puntaje = {0};
     Repositorio _repositorio;
 
@@ -64,13 +68,13 @@ private:
     bool formaPalabraVertical(tuple<Nat, Nat, Letra> o);
     bool formaPalabraHorizontal(tuple<Nat, Nat, Letra> o);
     bool todasLegitimas(const Ocurrencia &o);
-    Nat sumarHorizontal(const Ocurrencia &o);
-    Nat sumarVertical(const Ocurrencia &o);
-    Nat sumarTodasHorizontales(const Ocurrencia &o);
-    Nat sumarTodasVerticales(const Ocurrencia &o);
-    Nat puntosGanados(const Ocurrencia &o);
+
+    Nat puntosGanados(const Ocurrencia &o, Tablero t, Variante* v);
     bool esHorizontal(const Ocurrencia &o);
-    bool esVertical(const Ocurrencia &o);
+    Nat sumarHorizontal(const Ocurrencia &o, Tablero t, Variante* v);
+    Nat sumarVertical(const Ocurrencia &o, Tablero t, Variante* v);
+    Nat sumarTodasHorizontales(const Ocurrencia &o, Tablero t, Variante* v);
+    Nat sumarTodasVerticales(const Ocurrencia &o, Tablero t, Variante* v);
 
 
 };

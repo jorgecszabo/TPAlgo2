@@ -16,7 +16,7 @@ colaNotificaciones::colaNotificaciones(int k) {
     vector<int> ultimoPersonal(k);
 }
 
-void colaNotificaciones::encolarJugador(int n, int cid) {
+void colaNotificaciones::encolarJugador(Notificacion n, int cid) {
     assert(cid < cantidadJugadores);
     elem notifActual;
     notifActual.notif = n;
@@ -25,7 +25,7 @@ void colaNotificaciones::encolarJugador(int n, int cid) {
     personal.at(cid).push_back(notifActual);
 }
 
-void colaNotificaciones::encolarGeneral(int n) {
+void colaNotificaciones::encolarGeneral(Notificacion n) {
     elem notifActual;
     notifActual.notif = n;
     notifActual.ord = ordActual;
@@ -33,9 +33,9 @@ void colaNotificaciones::encolarGeneral(int n) {
     general.push_back(notifActual);
 }
 
-std::list<int> colaNotificaciones::notifJugador(int cid) {
+std::list<Notificacion> colaNotificaciones::notifJugador(int cid) {
     assert(cid < cantidadJugadores);
-    list<int> res;
+    list<Notificacion> res;
     int longRecorridoPersonal = personal[cid].size() - ultimoPersonal[cid];
     ultimoPersonal[cid] += longRecorridoPersonal;
     int longRecorridoGeneral = general.size() - ultimoGeneral[cid];

@@ -2,6 +2,7 @@
 #define TP_JUEGODEPALABRAS_COLANOTIFICACIONES_H
 #include <list>
 #include <vector>
+#include "Notificacion.h"
 
 using namespace std;
 //IMPORTANTE:
@@ -10,16 +11,16 @@ using namespace std;
 class colaNotificaciones {
 public:
     colaNotificaciones(int k);
-    void encolarJugador(int n, int cid);
-    void encolarGeneral(int n);
-    list<int> notifJugador(int cid);
+    void encolarJugador(Notificacion n, int cid);
+    void encolarGeneral(Notificacion n);
+    list<Notificacion> notifJugador(int cid);
     int cantJugadores();
 
 private:
     int cantidadJugadores;
     int ordActual;
     struct elem {
-        int notif;
+        Notificacion notif;
         int ord;
     };
     list<elem> general;

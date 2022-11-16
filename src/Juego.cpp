@@ -1,7 +1,8 @@
 #include "Juego.h"
-using namespace std
 
-Juego::Juego(Nat k, Variante& v, const Repositorio& r) {
+using namespace std;
+
+Juego::Juego(Nat k, const Fachada_Variante& v, const Repositorio& r) {
     Tablero _tablero(v.tamanoTablero());
     _repositorio = r;
     _turno = 0;
@@ -19,18 +20,18 @@ void Juego::ubicar(const Ocurrencia &o) {
         _tablero.ponerLetra(get<0>(l), get<1>(l), get<2>(l));
     }
     int jugador = _turno;
-    _puntaje[jugador] = _puntaje[jugador] + puntosGanados(o, _tablero, _variante);
+    _puntaje[jugador] = _puntaje[jugador] + puntosGanados(o);
 }
 
 
 
 //Auxiliares de Ubicar
 
-Nat Juego::puntosGanados(const Ocurrencia &o, Tablero t, Variante* v){
+Nat Juego::puntosGanados(const Ocurrencia &o){
     if (o.empty()) {
         return 0;
     }else{
-        if (esHorizontal(o)){
+        if (esTodaHorizontal(o)){
             return sumarHorizontal(o) + sumarTodasVerticales(o);
         }else{
             return sumarVertical(o) + sumarTodasHorizontales(o);
@@ -39,7 +40,7 @@ Nat Juego::puntosGanados(const Ocurrencia &o, Tablero t, Variante* v){
 }
 
 bool Juego::esHorizontal(const Ocurrencia &o){
-    if(o.size == 1 || get<1>(o.begin()) == get<1>(o.end())){
+    if(o.size() == 1 || get<1>(*o.begin()) == get<1>(*o.end())){
         return true;
         //acá en el pseudocodigo comparábamos el siguiente del iterador con el siguiente de avanzar(it),
         //como estábamos comparando para ver si es horizontal me pareció lo mismo?
@@ -48,97 +49,95 @@ bool Juego::esHorizontal(const Ocurrencia &o){
     }
 }
 
-Nat Juego::sumarHorizontal(const Ocurrencia &o, Tablero t, Variante* v){
+Nat Juego::sumarHorizontal(const Ocurrencia &o){
     int res = 0;
 
     Ocurrencia::iterator it = o.begin();
-    int col = get<0>(it);
-    int fila = get<1>(it);
-    while(col < t.tamano() && hayLetra(col,fila)){
-        res = res + v.puntajeLetra(t.letra(col,fila));
+    int col = get<0>(*it);
+    int fila = get<1>(*it);
+    while(col < _tablero.tamano() && hayLetra(col,fila)){
+        res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
         col++;
     }
 
-    col = get<0>(it) - 1;
+    col = get<0>(*it) - 1;
     while(0 < col && hayLetra(col,fila)){
-        res = res + v.puntajeLetra(t.letra(col,fila));
+        res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
         col--;
     }
+    return res;
 }
 
-Nat Juego::sumarVertical(const Ocurrencia &o, Tablero t, Variante *v) {
+Nat Juego::sumarVertical(const Ocurrencia &o) {
     int res = 0;
 
     Ocurrencia::iterator it = o.begin();
-    int col = get<0>(it);
-    int fila = get<1>(it);
+    int col = get<0>(*it);
+    int fila = get<1>(*it);
 
-    while(fila < t.tamano() && hayLetra(col,fila)){
-        res = res + v.puntajeLetra(t.letra(col,fila));
+    while(fila < _tablero.tamano() && hayLetra(col,fila)){
+        res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
         col++;
     }
 
-    fila = get<1>(it) - 1;
+    fila = get<1>(*it) - 1;
     while(0 < fila && hayLetra(col,fila)){
-        res = res + v.puntajeLetra(t.letra(col,fila));
+        res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
         fila--;
     }
     return res;
 }
 
-Nat Juego::sumarTodasHorizontales(const Ocurrencia &o, Tablero t, Variante* v){
+Nat Juego::sumarTodasHorizontales(const Ocurrencia &o){
     int res = 0;
     int col;
     int fila;
 
-    for(x : o){
+    for(auto x : o){
         col = get<0>(x);
         fila = get<1>(x);
-        while(col < t.tamano() && hayLetra(col,fila)){
-            res = res + v.puntajeLetra(t.letra(col,fila));
+        while(col < _tablero.tamano() && hayLetra(col,fila)){
+            res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
             col++;
         }
 
         col = get<0>(x) - 1;
         while(0 < col && hayLetra(col,fila)){
-            res = res + v.puntajeLetra(t.letra(col,fila));
+            res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
             col--;
         }
-
     }
+    return res;
 }
 
 
-Nat Juego::sumarTodasVerticales(const Ocurrencia &o, Tablero t, Variante* v){
+Nat Juego::sumarTodasVerticales(const Ocurrencia &o){
     int res = 0;
     int col;
     int fila;
 
-    for(x : o){
+    for(auto x : o){
         col = get<0>(x);
         fila = get<1>(x);
-        while(fila < t.tamano() && hayLetra(col,fila)){
-            res = res + v.puntajeLetra(t.letra(col,fila));
+        while(fila < _tablero.tamano() && hayLetra(col,fila)){
+            res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
             fila++;
         }
 
         fila = get<1>(x) - 1;
         while(0 < fila && hayLetra(col,fila)){
-            res = res + v.puntajeLetra(t.letra(col,fila));
+            res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
             fila--;
         }
-
     }
+    return res;
 }
-//
-
-
 
 IdCliente Juego::turno() {
     return _turno;
 }
 
-Variante& Juego::variante() {
+const Fachada_Variante &Juego::variante() {
     return *_variante;
 }
 
@@ -232,7 +231,6 @@ bool Juego::todasLegitimas(const Ocurrencia &o) {
     }
     return esValida;
 }
-
 bool Juego::jugadaValida(const Ocurrencia &o, IdCliente cid) {
     if (o.size() == 0 || o.size() > _variante->palabraMasLarga() || cid != _turno)
         return false;

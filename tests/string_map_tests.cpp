@@ -1,7 +1,5 @@
 #include "gtest-1.8.1/gtest.h"
 #include "../src/string_map.h"
-#include "../src/Tipos.h"
-#include "../src/Letra.h"
 #include "utils/PalabrasComunes.h"
 #include <set>
 TEST(string_map_test, vacio) {

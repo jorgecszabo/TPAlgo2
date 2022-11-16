@@ -16,7 +16,6 @@ public:
             Nat tamTab,
             Nat cantFichas,
             string_map pLeg);
-
     /* Retorna el tamano del tablero de la variante    */
     Nat tamanoTablero() const;
 

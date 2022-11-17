@@ -116,7 +116,7 @@ void string_map::borrar(const Palabra& clave) {
         _longPalMasLarga = altura(_raiz);
 }
 
-int string_map::cardinal() const{
+Nat string_map::cardinal() const{
     return _size;
 }
 

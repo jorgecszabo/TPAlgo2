@@ -1,15 +1,15 @@
 #include "Juego.h"
 using namespace std;
 
-Juego::Juego(Nat k, const Variante v, const Repositorio& r): _variante(v) {
-    Tablero _tablero(v.tamanoTablero());
+Juego::Juego(Nat k, const Variante v, const Repositorio& r): _variante(v), _tablero(Tablero (v.tamanoTablero())) {
     _repositorio = r;
     _turno = 0;
-    vector<vector<Nat>> _fichasxJugador(k);
-    for (auto fichas: _fichasxJugador) {
+    vector<vector<Nat>> fichasXJugador(k);
+    for (auto fichas: fichasXJugador) {
         for (int i = 0; i < TAMANIO_ALFABETO; i++)
             fichas.push_back(0);
     }
+    _fichasxJugador = fichasXJugador;
     vector<int> _puntaje(k);
 }
 

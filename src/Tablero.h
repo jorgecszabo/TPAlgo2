@@ -32,7 +32,6 @@ class Tablero {
 
     private:
     vector<vector<tuple<bool, Letra>>> _tablero;
-
 };
 
 #endif //TP_JUEGODEPALABRAS_TABLERO_H

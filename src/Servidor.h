@@ -50,11 +50,12 @@ public:
 
 private:
     Juego _juego;
-    Nat _conectados = 0;
-    const Repositorio _repInicial;
+    Nat _conectados;
+    Repositorio _repInicial;
     colaNotificaciones _notificaciones;
 
-    multiset<Letra> fichasAReponer(const Ocurrencia& o, Repositorio r);
+    multiset<Letra> fichasAReponer(int cantidad);
+    Repositorio::iterator _it;
 
     };
 

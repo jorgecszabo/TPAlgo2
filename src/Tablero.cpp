@@ -2,19 +2,14 @@
 
 Tablero::Tablero(int n) {
     vector<vector<tuple<bool, Letra>>> tab;
-    for(int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++) {
         vector<tuple<bool, Letra>> fila;
-        for(int j = 0; i < n; i++){
+        for (int j = 0; j < n; j++) {
             tuple<bool, Letra> casillero = make_tuple(false, 'a');
             fila.push_back(casillero);
         }
         tab.push_back(fila);
     }
-    _tablero = tab;
-}
-
-Tablero::Tablero() {
-    vector<vector<tuple<bool, Letra>>> tab;
     _tablero = tab;
 }
 

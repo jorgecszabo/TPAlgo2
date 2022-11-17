@@ -2,7 +2,8 @@
 #include "Notificacion.h"
 #include "colaNotificaciones.h"
 
-Servidor::Servidor(Juego j, const Repositorio& r, colaNotificaciones n) : _juego(j), _repInicial(r), _notificaciones(n){
+Servidor::Servidor(Juego j, const Repositorio& r, colaNotificaciones n) : _juego(j), _repInicial(r), _notificaciones(n), _conectados(0){
+    _it = _repInicial.begin();
 }
 
 
@@ -11,10 +12,13 @@ IdCliente Servidor::conectarCliente(){
     int id = _conectados;
     _notificaciones.encolarJugador(n, _conectados);
     _conectados++;
-
     if (_conectados == _juego.cantJugadores()){
         Notificacion n2 = Notificacion::nuevaEmpezar((_juego.tablero()).tamano());
         _notificaciones.encolarGeneral(n2);
+        _notificaciones.encolarGeneral(Notificacion::nuevaTurnoDe(_juego.turno()));
+        for (int i = 0; i < _conectados; i++) {
+            _notificaciones.encolarJugador(Notificacion::nuevaReponer(fichasAReponer(_juego.variante().fichas())) , i);
+        }
     }
     return id;
 }
@@ -24,24 +28,22 @@ void Servidor::recibirMensaje(IdCliente id, const Ocurrencia& o){
     int puntajeAnterior = _juego.puntaje(id);
     if (_juego.turno() == id && _juego.jugadaValida(o, id)){
         _notificaciones.encolarGeneral(Notificacion::nuevaUbicar(id, o));
-        _notificaciones.encolarGeneral(Notificacion::nuevaTurnoDe((id+1)%_notificaciones.cantJugadores()));
-
         _juego.ubicar(o);
         _notificaciones.encolarGeneral(Notificacion::nuevaSumaPuntos(id,_juego.puntaje(id) - puntajeAnterior));
+        _notificaciones.encolarJugador(Notificacion::nuevaReponer(fichasAReponer(o.size())), id);
+        _notificaciones.encolarGeneral(Notificacion::nuevaTurnoDe((id+1)%_notificaciones.cantJugadores()));
 
-        _notificaciones.encolarJugador(Notificacion::nuevaReponer(fichasAReponer(o, _juego.repositorio())), id);
     }else{
         _notificaciones.encolarJugador(Notificacion::nuevaMal(),id);
     }
 }
 
-multiset<Letra> Servidor::fichasAReponer(const Ocurrencia& o, Repositorio r){
+multiset<Letra> Servidor::fichasAReponer(int cantidad){
     multiset<Letra> ms;
-    Repositorio::iterator it = r.begin();
-    for(int i = 0; i < o.size(); i++){
-        Letra elem = *it;
+    for(int i = 0; i < cantidad; i++){
+        Letra elem = *_it;
         ms.insert(elem);
-        it++;
+        _it++;
     }
     return ms;
 }

@@ -16,8 +16,8 @@ colaNotificaciones::colaNotificaciones(int k) {
         list<elem> l;
         personal.push_back(l);
     }
-    vector<int> ultimoGeneral(k);
-    vector<int> ultimoPersonal(k);
+    ultimoGeneral = vector<int>(k);
+    ultimoPersonal = vector<int>(k);
 }
 
 void colaNotificaciones::encolarJugador(Notificacion n, int cid) {

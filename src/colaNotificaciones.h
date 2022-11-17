@@ -27,8 +27,8 @@ private:
     };
     list<elem> general;
     vector<list<elem>> personal;
-    vector<int> ultimoGeneral = {0};
-    vector<int> ultimoPersonal = {0};
+    vector<int> ultimoGeneral;
+    vector<int> ultimoPersonal;
 };
 
 #endif //TP_JUEGODEPALABRAS_COLANOTIFICACIONES_H

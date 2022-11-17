@@ -3,7 +3,7 @@
 Variante::Variante(vector<Nat> p, Nat t, Nat f, string_map pl) : _puntLetra(p), _tamanoTab(t), _cantFichas(f), _legitimas(pl) {
 }
 
-Nat Variante::tamanoTablero() const {
+Nat Variante::tamTablero() const {
     return _tamanoTab;
 }
 
@@ -15,7 +15,7 @@ Nat Variante::puntajeLetra(Letra l) const {
     return _puntLetra[ord(l)];
 }
 
-bool Variante::palabraLegitima(const Palabra &palabra) const {
+bool Variante::palLegitima(const Palabra &palabra) const {
     return _legitimas.pertenece(palabra);
 }
 

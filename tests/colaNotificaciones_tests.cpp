@@ -8,46 +8,34 @@ TEST(colaNotificaionesTest, cantJugadores) {
     colaNotificaciones cola(18);
     EXPECT_EQ(cola.cantJugadores(), 18);
 }
-/*
+
 TEST(colaNotificaionesTest, muchasNotificaiones) {
     colaNotificaciones cola(2);
-    list<int> j0Orig;
-    list<int> j1Orig;
-    for (int i = 0; i < 10; i++) {
-        if (i % 2 == 0) {
-            cola.encolarGeneral(i);
-            j0Orig.push_back(i);
-            j1Orig.push_back(i);
-        } else {
-            cola.encolarJugador(i, 0);
-            j0Orig.push_back(i);
-        }
-    }
-    list<int> j0Encolada0 = cola.notifJugador(0);
-    list<int> j1Encolada0 = cola.notifJugador(1);
-    EXPECT_EQ(j0Encolada0, j0Orig);
-    EXPECT_EQ(j1Orig, j1Encolada0);
-    for (int i = 20; i < 30; i++) {
-        if (i % 2 == 0) {
-            cola.encolarGeneral(i);
-            j0Orig.push_back(i);
-            j1Orig.push_back(i);
-        } else {
-            cola.encolarJugador(i, 0);
-            j0Orig.push_back(i);
-        }
-    }
-    list<int> j0Encolada1 = cola.notifJugador(0);
-    list<int> j1Encolada1 = cola.notifJugador(1);
-    for (int e : j0Encolada1)
-        j0Encolada0.push_back(e);
-    for (int e : j1Encolada1)
-        j1Encolada0.push_back(e);
-    EXPECT_EQ(j0Encolada0, j0Orig);
-    EXPECT_EQ(j1Orig, j1Encolada0);
-    j0Encolada1 = cola.notifJugador(0);
-    j1Encolada1 = cola.notifJugador(1);
-    EXPECT_EQ(j0Encolada1.size(), 0);
-    EXPECT_EQ(j1Encolada1.size(), 0);
+    list<Notificacion> jugador1Orig;
+    list<Notificacion> jugador2Orig;
 
-}*/
+    Notificacion n1(Notificacion::nuevaIdCliente(69));
+    Notificacion n2(Notificacion::nuevaIdCliente(70));
+    Notificacion general(Notificacion::nuevaEmpezar(70));
+
+    cola.encolarJugador(n1, 0);
+    cola.encolarJugador(n2, 1);
+    cola.encolarGeneral(general);
+    jugador1Orig.push_back(n1);
+    jugador2Orig.push_back(n2);
+    jugador1Orig.push_back(general);
+    jugador2Orig.push_back(general);
+
+    for (int i = 1; i <= 1500; i++) {
+        Notificacion spam(Notificacion::nuevaMal());
+        cola.encolarJugador(spam, 0);
+        jugador1Orig.push_back(spam);
+    }
+    general = Notificacion::nuevaTurnoDe(4);
+    cola.encolarGeneral(general);
+    jugador1Orig.push_back(general);
+    jugador2Orig.push_back(general);
+
+    EXPECT_EQ(jugador1Orig, cola.notifJugador(0));
+    EXPECT_EQ(jugador2Orig, cola.notifJugador(1));
+}

@@ -1,8 +1,6 @@
 #ifndef TP_JUEGODEPALABRAS_VARIANTE_H
 #define TP_JUEGODEPALABRAS_VARIANTE_H
 
-#endif //TP_JUEGODEPALABRAS_VARIANTE_H
-
 #include "Tipos.h"
 #include "string_map.h"
 #include "Letra.h"
@@ -30,7 +28,7 @@ public:
     bool palabraLegitima(const Palabra& palabra) const;
 
     /* Retorna la longitud de la palabra mas larga */
-    Nat palabraMasLarga();
+    Nat palabraMasLarga() const;
 
 private:
     Nat _tamanoTab;
@@ -38,3 +36,5 @@ private:
     vector<Nat> _puntLetra;
     string_map _legitimas;
 };
+
+#endif //TP_JUEGODEPALABRAS_VARIANTE_H

@@ -11,6 +11,7 @@ using namespace std;
 class colaNotificaciones {
 public:
     colaNotificaciones(int k);
+    colaNotificaciones();
     void encolarJugador(Notificacion n, int cid);
     void encolarGeneral(Notificacion n);
     list<Notificacion> notifJugador(int cid);
@@ -20,6 +21,7 @@ private:
     int cantidadJugadores;
     int ordActual;
     struct elem {
+        elem(Notificacion n, Nat o): notif(n), ord(o){};
         Notificacion notif;
         int ord;
     };

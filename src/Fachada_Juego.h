@@ -14,9 +14,9 @@ public:
      * Complejidad: O(tamanoTab**2 + ALPHABET_SIZE*cantJugadores + cantFichas*cantJugadores)
      */
     Fachada_Juego(Nat k, const Fachada_Variante& v, const Repositorio& r) {
-        _juego = new Juego(k, v, r);
+        const Variante* nuestraVariante = v.nuestraVariante();
+        _juego = new Juego(k, nuestraVariante , r);
     };
-    ~Fachada_Juego() { delete _juego; };
     /**
      * Ubica una Ocurrencia o en el juego
      *
@@ -33,7 +33,7 @@ public:
      * Complejidad: O(1)
      */
     IdCliente turno() {
-        _juego->turno();
+        return _juego->turno();
     };
 
     /**
@@ -42,7 +42,7 @@ public:
      * Complejidad: O(1)
      */
     const Fachada_Variante& variante() {
-        _juego->variante();
+        return (const Fachada_Variante &) _juego->variante();
     };
 
     /**
@@ -51,7 +51,7 @@ public:
      * Complejidad: O(Lmax ** 2)
      */
     bool jugadaValida(const Ocurrencia& o) {
-        _juego->jugadaValida(o, turno());
+        return _juego->jugadaValida(o, turno());
     };
 
     /**
@@ -60,7 +60,7 @@ public:
      * Complejidad: O(1)
      */
     bool hayLetra(Nat x, Nat y) {
-        _juego->hayLetra(x,y);
+        return _juego->hayLetra(x,y);
     };
 
     /**
@@ -69,7 +69,7 @@ public:
      * Complejidad: O(1)
      */
     Letra letra(Nat i, Nat j) {
-        _juego->letra(i,j);
+        return _juego->letra(i,j);
     };
 
     /**
@@ -79,7 +79,7 @@ public:
      *   donde m es la cantidad de fichas que ubico el jugador desde la ultima vez que se preguntó por su puntaje.
      */
     Nat puntaje(IdCliente id) {
-        _juego->puntaje(id);
+        return _juego->puntaje(id);
     };
 
 
@@ -89,7 +89,7 @@ public:
      * Complejidad: O(1)
      */
     Nat cantFicha(IdCliente id, Letra l) {
-        _juego->cantFicha(id, l);
+        return _juego->cantFicha(id, l);
     };
 
 private:

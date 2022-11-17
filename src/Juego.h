@@ -10,7 +10,7 @@ class Juego {
 public:
     /*  Construye un juego a partir de la cantidad de jugadores k, la variante v y el repositorio r  */
     /*  Complejidad: O(tamanoTab**2 + ALPHABET_SIZE*cantJugadores + cantFichas*cantJugadores)  */
-    Juego(Nat k, Variante& v, const Repositorio& r);
+    Juego(Nat k, const Variante* v, const Repositorio& r);
 
     /*  Ubica una Ocurrencia o en el juego  */
     /*  Complejidad: O(m)  -   donde m es el numero de fichas que se ubican  */
@@ -22,7 +22,7 @@ public:
 
     /*  Retorna informacion sobre la variante del juego  */
     /*  Complejidad: O(1)  */
-    Variante& variante();
+    const Variante& variante();
 
     /*  Determina si una jugada es valida o no  */
     /*  Complejidad: O(Lmax ** 2)  */
@@ -56,7 +56,7 @@ private:
     Tablero _tablero;
     vector<vector<Nat>> _fichasxJugador;
     Nat _turno;
-    Variante* _variante;
+    const Variante *_variante;
     vector<Nat> _puntaje = {0};
     Repositorio _repositorio;
 
@@ -69,12 +69,12 @@ private:
     bool formaPalabraHorizontal(tuple<Nat, Nat, Letra> o);
     bool todasLegitimas(const Ocurrencia &o);
 
-    Nat puntosGanados(const Ocurrencia &o, Tablero t, Variante* v);
+    Nat puntosGanados(const Ocurrencia &o);
     bool esHorizontal(const Ocurrencia &o);
-    Nat sumarHorizontal(const Ocurrencia &o, Tablero t, Variante* v);
-    Nat sumarVertical(const Ocurrencia &o, Tablero t, Variante* v);
-    Nat sumarTodasHorizontales(const Ocurrencia &o, Tablero t, Variante* v);
-    Nat sumarTodasVerticales(const Ocurrencia &o, Tablero t, Variante* v);
+    Nat sumarHorizontal(const Ocurrencia &o);
+    Nat sumarVertical(const Ocurrencia &o);
+    Nat sumarTodasHorizontales(const Ocurrencia &o);
+    Nat sumarTodasVerticales(const Ocurrencia &o);
 
 
 };

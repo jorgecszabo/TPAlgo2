@@ -16,8 +16,7 @@ public:
      */
     Servidor(
         Juego j,
-        Nat c,
-        Repositorio r,
+        const Repositorio& r,
         colaNotificaciones n
     );
 
@@ -51,10 +50,12 @@ public:
 
 private:
     Juego _juego;
-    Nat _conectados;
-    Repositorio _repInicial;
+    Nat _conectados = 0;
+    const Repositorio _repInicial;
     colaNotificaciones _notificaciones;
 
     multiset<Letra> fichasAReponer(const Ocurrencia& o, Repositorio r);
 
     };
+
+#endif

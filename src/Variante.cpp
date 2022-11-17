@@ -1,7 +1,5 @@
 #include "Variante.h"
 
-
-
 Variante::Variante(vector<Nat> p, Nat t, Nat f, string_map pl) : _puntLetra(p), _tamanoTab(t), _cantFichas(f), _legitimas(pl) {
 }
 
@@ -21,7 +19,7 @@ bool Variante::palabraLegitima(const Palabra &palabra) const {
     return _legitimas.pertenece(palabra);
 }
 
-Nat Variante::palabraMasLarga() {
+Nat Variante::palabraMasLarga() const {
     return _legitimas.palMasLarga();
 }
 

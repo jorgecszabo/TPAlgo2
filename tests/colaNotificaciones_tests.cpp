@@ -8,7 +8,7 @@ TEST(colaNotificaionesTest, cantJugadores) {
     colaNotificaciones cola(18);
     EXPECT_EQ(cola.cantJugadores(), 18);
 }
-
+/*
 TEST(colaNotificaionesTest, muchasNotificaiones) {
     colaNotificaciones cola(2);
     list<int> j0Orig;
@@ -50,4 +50,4 @@ TEST(colaNotificaionesTest, muchasNotificaiones) {
     EXPECT_EQ(j0Encolada1.size(), 0);
     EXPECT_EQ(j1Encolada1.size(), 0);
 
-}
+}*/

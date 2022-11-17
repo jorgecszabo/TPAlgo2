@@ -5,6 +5,10 @@
 #include "colaNotificaciones.h"
 #include <cassert>
 
+colaNotificaciones::colaNotificaciones() {
+    colaNotificaciones(1);
+}
+
 colaNotificaciones::colaNotificaciones(int k) {
     cantidadJugadores = k;
     ordActual = 0;
@@ -18,17 +22,13 @@ colaNotificaciones::colaNotificaciones(int k) {
 
 void colaNotificaciones::encolarJugador(Notificacion n, int cid) {
     assert(cid < cantidadJugadores);
-    elem notifActual;
-    notifActual.notif = n;
-    notifActual.ord = ordActual;
+    elem notifActual(n, ordActual);
     ordActual++;
     personal.at(cid).push_back(notifActual);
 }
 
 void colaNotificaciones::encolarGeneral(Notificacion n) {
-    elem notifActual;
-    notifActual.notif = n;
-    notifActual.ord = ordActual;
+    elem notifActual(n, ordActual);
     ordActual++;
     general.push_back(notifActual);
 }

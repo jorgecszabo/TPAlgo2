@@ -25,10 +25,6 @@ public:
             _palLegitimas->agregar(p);
         _variante = new Variante(_puntaje, tamanoTab, cantFichas , *_palLegitimas);
     };
-    ~Fachada_Variante(){
-        delete _variante;
-        delete _palLegitimas;
-    };
     /**
      * Retorna el tamano del tablero de la variante
      */
@@ -58,10 +54,11 @@ public:
     };
 
     /**
-    * Retorna el tamaño de la palabra más larga
+    * Retorna un puntero a la variante que implementamos, usada para que
+    * podamos usar nuestra variante en Juego.h
     */
-     Nat palabraMasLarga() const {
-        return _variante->palabraMasLarga();
+     const Variante* nuestraVariante() const {
+        return _variante;
      }
 
 private:

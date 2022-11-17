@@ -38,4 +38,6 @@ TEST(colaNotificaionesTest, muchasNotificaiones) {
 
     EXPECT_EQ(jugador1Orig, cola.notifJugador(0));
     EXPECT_EQ(jugador2Orig, cola.notifJugador(1));
+    EXPECT_EQ(0, cola.notifJugador(0).size());
+    EXPECT_EQ(0, cola.notifJugador(1).size());
 }

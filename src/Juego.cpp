@@ -1,8 +1,8 @@
 #include "Juego.h"
 using namespace std;
 
-Juego::Juego(Nat k, const Variante* v, const Repositorio& r) {
-    Tablero _tablero(v->tamanoTablero());
+Juego::Juego(Nat k, const Variante v, const Repositorio& r): _variante(v) {
+    Tablero _tablero(v.tamanoTablero());
     _repositorio = r;
     _turno = 0;
     vector<vector<Nat>> _fichasxJugador(k);
@@ -10,7 +10,6 @@ Juego::Juego(Nat k, const Variante* v, const Repositorio& r) {
         for (int i = 0; i < TAMANIO_ALFABETO; i++)
             fichas.push_back(0);
     }
-    _variante = v;
     vector<int> _puntaje(k);
 }
 
@@ -55,13 +54,13 @@ Nat Juego::sumarHorizontal(const Ocurrencia &o){
     int col = get<0>(*it);
     int fila = get<1>(*it);
     while(col < _tablero.tamano() && hayLetra(col,fila)){
-        res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
+        res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
         col++;
     }
 
     col = get<0>(*it) - 1;
     while(0 < col && hayLetra(col,fila)){
-        res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
+        res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
         col--;
     }
     return res;
@@ -75,13 +74,13 @@ Nat Juego::sumarVertical(const Ocurrencia &o) {
     int fila = get<1>(*it);
 
     while(fila < _tablero.tamano() && hayLetra(col,fila)){
-        res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
+        res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
         col++;
     }
 
     fila = get<1>(*it) - 1;
     while(0 < fila && hayLetra(col,fila)){
-        res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
+        res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
         fila--;
     }
     return res;
@@ -96,13 +95,13 @@ Nat Juego::sumarTodasHorizontales(const Ocurrencia &o){
         col = get<0>(x);
         fila = get<1>(x);
         while(col < _tablero.tamano() && hayLetra(col,fila)){
-            res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
+            res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
             col++;
         }
 
         col = get<0>(x) - 1;
         while(0 < col && hayLetra(col,fila)){
-            res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
+            res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
             col--;
         }
     }
@@ -119,13 +118,13 @@ Nat Juego::sumarTodasVerticales(const Ocurrencia &o){
         col = get<0>(x);
         fila = get<1>(x);
         while(fila < _tablero.tamano() && hayLetra(col,fila)){
-            res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
+            res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
             fila++;
         }
 
         fila = get<1>(x) - 1;
         while(0 < fila && hayLetra(col,fila)){
-            res = res + _variante->puntajeLetra(_tablero.letra(col,fila));
+            res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
             fila--;
         }
     }
@@ -137,7 +136,7 @@ IdCliente Juego::turno() {
 }
 
 const Variante& Juego::variante() {
-    return *_variante;
+    return _variante;
 }
 
 void Juego::colocarFichas(const Ocurrencia &o) {
@@ -176,13 +175,13 @@ bool Juego::formaPalabraHorizontal(tuple<Nat, Nat, Letra> o) {
     int col = get<0>(o);
     int fila = get<1>(o);
     list<Letra> palabra;
-    while (col < _tablero.tamano() && palabra.size() <= _variante->palabraMasLarga() + 1 && _tablero.hayLetra(col, fila)) {
+    while (col < _tablero.tamano() && palabra.size() <= _variante.palabraMasLarga() + 1 && _tablero.hayLetra(col, fila)) {
             palabra.push_back(_tablero.letra(col, fila));
             col++;
     }
     col = get<1>(o);
     col--;
-    while (col >= 0 && palabra.size() <= _variante->palabraMasLarga() + 1 && _tablero.hayLetra(col, fila)) {
+    while (col >= 0 && palabra.size() <= _variante.palabraMasLarga() + 1 && _tablero.hayLetra(col, fila)) {
         palabra.push_front(letra(col, fila));
         col--;
     }
@@ -190,20 +189,20 @@ bool Juego::formaPalabraHorizontal(tuple<Nat, Nat, Letra> o) {
     for (Letra l : palabra) {
         res.push_back(l);
     }
-    return _variante->palabraLegitima(res);
+    return _variante.palabraLegitima(res);
 }
 
 bool Juego::formaPalabraVertical(tuple<Nat, Nat, Letra> o) {
     int col = get<0>(o);
     int fila = get<1>(o);
     list<Letra> palabra;
-    while (fila < _tablero.tamano() && palabra.size() <= _variante->palabraMasLarga() + 1 && _tablero.hayLetra(col, fila)) {
+    while (fila < _tablero.tamano() && palabra.size() <= _variante.palabraMasLarga() + 1 && _tablero.hayLetra(col, fila)) {
         palabra.push_back(_tablero.letra(col, fila));
         fila++;
     }
     col = get<1>(o);
     col--;
-    while (fila >= 0 && palabra.size() <= _variante->palabraMasLarga() + 1 && _tablero.hayLetra(col, fila)) {
+    while (fila >= 0 && palabra.size() <= _variante.palabraMasLarga() + 1 && _tablero.hayLetra(col, fila)) {
         palabra.push_front(letra(col, fila));
         fila--;
     }
@@ -211,7 +210,7 @@ bool Juego::formaPalabraVertical(tuple<Nat, Nat, Letra> o) {
     for (Letra l : palabra) {
         res.push_back(l);
     }
-    return _variante->palabraLegitima(res);
+    return _variante.palabraLegitima(res);
 }
 
 bool Juego::todasLegitimas(const Ocurrencia &o) {
@@ -232,7 +231,7 @@ bool Juego::todasLegitimas(const Ocurrencia &o) {
 }
 
 bool Juego::jugadaValida(const Ocurrencia &o, IdCliente cid) {
-    if (o.size() == 0 || o.size() > _variante->palabraMasLarga() || cid != _turno)
+    if (o.size() == 0 || o.size() > _variante.palabraMasLarga() || cid != _turno)
         return false;
     if (_tablero.celdasLibres(o)) {
         colocarFichas(o);

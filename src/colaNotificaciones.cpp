@@ -12,12 +12,12 @@ colaNotificaciones::colaNotificaciones() {
 colaNotificaciones::colaNotificaciones(int k) {
     cantidadJugadores = k;
     ordActual = 0;
+    ultimoGeneral = vector<int>(k, 0);
+    ultimoPersonal = vector<int>(k,0);
     for (int i = 0; i < k; i++) {
         list<elem> l;
         personal.push_back(l);
     }
-    ultimoGeneral = vector<int>(k);
-    ultimoPersonal = vector<int>(k);
 }
 
 void colaNotificaciones::encolarJugador(Notificacion n, int cid) {

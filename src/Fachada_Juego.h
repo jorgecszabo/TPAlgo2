@@ -13,10 +13,7 @@ public:
      *
      * Complejidad: O(tamanoTab**2 + ALPHABET_SIZE*cantJugadores + cantFichas*cantJugadores)
      */
-    Fachada_Juego(Nat k, const Fachada_Variante& v, const Repositorio& r) {
-        const Variante* nuestraVariante = v.nuestraVariante();
-        _juego = new Juego(k, nuestraVariante , r);
-    };
+    Fachada_Juego(Nat k, const Fachada_Variante& v, const Repositorio& r): _juego(Juego(k, v.nuestraVariante(), r)) {};
     /**
      * Ubica una Ocurrencia o en el juego
      *
@@ -24,7 +21,7 @@ public:
      *   donde m es el numero de fichas que se ubican
      */
     void ubicar(const Ocurrencia& o) {
-        _juego->ubicar(o);
+        _juego.ubicar(o);
     };
 
     /**
@@ -33,7 +30,7 @@ public:
      * Complejidad: O(1)
      */
     IdCliente turno() {
-        return _juego->turno();
+        return _juego.turno();
     };
 
     /**
@@ -42,7 +39,7 @@ public:
      * Complejidad: O(1)
      */
     const Fachada_Variante& variante() {
-        return (const Fachada_Variante &) _juego->variante();
+        return (const Fachada_Variante &) _juego.variante();
     };
 
     /**
@@ -51,7 +48,7 @@ public:
      * Complejidad: O(Lmax ** 2)
      */
     bool jugadaValida(const Ocurrencia& o) {
-        return _juego->jugadaValida(o, turno());
+        return _juego.jugadaValida(o, turno());
     };
 
     /**
@@ -60,7 +57,7 @@ public:
      * Complejidad: O(1)
      */
     bool hayLetra(Nat x, Nat y) {
-        return _juego->hayLetra(x,y);
+        return _juego.hayLetra(x,y);
     };
 
     /**
@@ -69,7 +66,7 @@ public:
      * Complejidad: O(1)
      */
     Letra letra(Nat i, Nat j) {
-        return _juego->letra(i,j);
+        return _juego.letra(i,j);
     };
 
     /**
@@ -79,7 +76,7 @@ public:
      *   donde m es la cantidad de fichas que ubico el jugador desde la ultima vez que se preguntó por su puntaje.
      */
     Nat puntaje(IdCliente id) {
-        return _juego->puntaje(id);
+        return _juego.puntaje(id);
     };
 
 
@@ -89,11 +86,11 @@ public:
      * Complejidad: O(1)
      */
     Nat cantFicha(IdCliente id, Letra l) {
-        return _juego->cantFicha(id, l);
+        return _juego.cantFicha(id, l);
     };
 
 private:
-    Juego* _juego;
+    Juego _juego;
 };
 
 #endif // FACHADA_JUEGO_H

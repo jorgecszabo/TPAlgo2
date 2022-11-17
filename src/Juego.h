@@ -10,7 +10,7 @@ class Juego {
 public:
     /*  Construye un juego a partir de la cantidad de jugadores k, la variante v y el repositorio r  */
     /*  Complejidad: O(tamanoTab**2 + ALPHABET_SIZE*cantJugadores + cantFichas*cantJugadores)  */
-    Juego(Nat k, const Variante* v, const Repositorio& r);
+    Juego(Nat k, const Variante v, const Repositorio& r);
 
     /*  Ubica una Ocurrencia o en el juego  */
     /*  Complejidad: O(m)  -   donde m es el numero de fichas que se ubican  */
@@ -56,7 +56,7 @@ private:
     Tablero _tablero;
     vector<vector<Nat>> _fichasxJugador;
     Nat _turno;
-    const Variante *_variante;
+    const Variante _variante;
     vector<Nat> _puntaje = {0};
     Repositorio _repositorio;
 

@@ -1,5 +1,3 @@
-#include "string_map.h"
-
 string_map::string_map(int tam){
     _raiz = new Nodo(tam);
     _size = 0;

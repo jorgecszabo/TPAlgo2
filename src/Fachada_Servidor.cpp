@@ -1,18 +1,13 @@
 #include "Fachada_Servidor.h"
 
 Fachada_Servidor::Fachada_Servidor(
-        Nat cantJugadores,
-const Fachada_Variante& variante,
-const Repositorio& r
+Nat cantJugadores, const Fachada_Variante& variante, const Repositorio& r
 ){
-_juego = new Juego(cantJugadores, variante.nuestraVariante(), r);
-_notificaciones = colaNotificaciones(cantJugadores);
-_servidor = new Servidor(*_juego, _notificaciones);
+_servidor = new Servidor(cantJugadores, variante.nuestraVariante(), r);
 }
 
 Fachada_Servidor::~Fachada_Servidor() {
     delete _servidor;
-    delete _juego;
 }
 
 IdCliente Fachada_Servidor::conectarCliente() {

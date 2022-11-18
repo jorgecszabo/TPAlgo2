@@ -39,7 +39,7 @@ public:
     /**
     * Retorna la longitud de la palabra mas larga
     */
-     Nat palabraMasLarga() const;
+    const Variante& nuestraVariante() const;
 
 private:
     Variante _variante;

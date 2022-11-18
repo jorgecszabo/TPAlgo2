@@ -37,10 +37,9 @@ public:
     bool palabraLegitima(const Palabra& palabra) const;
 
     /**
-    * Retorna un puntero a la variante que implementamos, usada para que
-    * podamos usar nuestra variante en Juego.h
+    * Retorna la longitud de la palabra mas larga
     */
-     const Variante& nuestraVariante() const;
+     Nat palabraMasLarga() const;
 
 private:
     Variante _variante;

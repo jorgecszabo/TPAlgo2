@@ -5,6 +5,7 @@ string_map::string_map(int tam){
     _size = 0;
     _tamAlfabeto = tam;
     _longPalMasLarga = 0;
+    //CORREGIR : USAR TAMANO ALFABETO
 }
 
 string_map::string_map(const string_map& aCopiar) : string_map(this->_tamAlfabeto) { *this = aCopiar; }

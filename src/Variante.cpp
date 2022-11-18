@@ -1,6 +1,6 @@
 #include "Variante.h"
 
-Variante::Variante(vector<Nat> p, Nat t, Nat f, string_map pl) : _puntLetra(p), _tamanoTab(t), _cantFichas(f), _legitimas(pl) {
+Variante::Variante(vector<Nat> p, Nat t, Nat f, const string_map& pl) : _puntLetra(p), _tamanoTab(t), _cantFichas(f), _legitimas(pl) {
 }
 
 Nat Variante::tamanoTablero() const {

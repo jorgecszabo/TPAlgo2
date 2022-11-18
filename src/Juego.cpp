@@ -1,7 +1,7 @@
 #include "Juego.h"
 using namespace std;
 
-Juego::Juego(Nat k, const Variante v, const Repositorio& r): _variante(v), _tablero(Tablero (v.tamanoTablero())) {
+Juego::Juego(Nat k, const Variante& v, const Repositorio& r): _variante(v), _tablero(Tablero (v.tamanoTablero())) {
     _repositorio = r;
     _turno = 0;
     _it = _repositorio.begin();

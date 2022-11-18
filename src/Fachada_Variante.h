@@ -16,6 +16,7 @@ public:
             const map<Letra, Nat>& puntajes,
             const set<vector<Letra>>& palabrasLegitimas
     );
+    ~Fachada_Variante();
     /**
      * Retorna el tamano del tablero de la variante
      */
@@ -42,7 +43,8 @@ public:
     const Variante& nuestraVariante() const;
 
 private:
-    Variante _variante;
+    Variante* _variante;
+    string_map* _palValidas;
 
     vector<Nat> convertirPuntaje(const map<Letra, Nat>& puntajes) {
         vector<Nat> res(TAMANIO_ALFABETO, 1);

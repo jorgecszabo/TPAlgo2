@@ -13,7 +13,7 @@ public:
             vector<Nat> pLetra,
             Nat tamTab,
             Nat cantFichas,
-            string_map pLeg);
+            const string_map& pLeg);
     /* Retorna el tamano del tablero de la variante    */
     Nat tamanoTablero() const;
 
@@ -34,7 +34,7 @@ private:
     Nat _tamanoTab;
     Nat _cantFichas;
     vector<Nat> _puntLetra;
-    string_map _legitimas;
+    const string_map& _legitimas;
 };
 
 #endif //TP_JUEGODEPALABRAS_VARIANTE_H

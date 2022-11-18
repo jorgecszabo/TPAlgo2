@@ -1,9 +1,9 @@
 #include "string_map.h"
 
-string_map::string_map(int tam){
-    _raiz = new Nodo(tam);
+string_map::string_map(){
+    _raiz = new Nodo(TAMANIO_ALFABETO);
     _size = 0;
-    _tamAlfabeto = tam;
+    _tamAlfabeto = TAMANIO_ALFABETO;
     _longPalMasLarga = 0;
     //CORREGIR : USAR TAMANO ALFABETO
 }

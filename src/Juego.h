@@ -22,7 +22,7 @@ public:
 
     /*  Retorna informacion sobre la variante del juego  */
     /*  Complejidad: O(1)  */
-    const Variante& variante();
+    const Fachada_Variante& variante();
 
     /*  Determina si una jugada es valida o no  */
     /*  Complejidad: O(Lmax ** 2)  */

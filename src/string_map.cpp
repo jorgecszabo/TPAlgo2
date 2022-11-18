@@ -22,6 +22,7 @@ string_map& string_map::operator=(const string_map& d) {
     borrarNodo(_raiz);
    _size = d._size;
    _raiz = copiarNodo(d._raiz);
+   _longPalMasLarga = d._longPalMasLarga;
    return *this;
 }
 

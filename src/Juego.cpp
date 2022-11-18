@@ -49,7 +49,11 @@ Nat Juego::puntosGanados(const Ocurrencia &o){
 }
 
 bool Juego::esHorizontal(const Ocurrencia &o){
-    if(o.size() == 1 || get<1>(*o.begin()) == get<1>(*o.end())){
+    Ocurrencia::iterator it = o.begin();
+    int primFila = get<1>(*it);
+    it++;
+    int segFila = get<1>(*it);
+    if(o.size() == 1 || primFila == segFila){
         return true;
         //acá en el pseudocodigo comparábamos el siguiente del iterador con el siguiente de avanzar(it),
         //como estábamos comparando para ver si es horizontal me pareció lo mismo?

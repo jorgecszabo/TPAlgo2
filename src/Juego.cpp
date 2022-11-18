@@ -19,6 +19,7 @@ void Juego::ubicar(const Ocurrencia &o) {
     }
     int jugador = _turno;
     _puntaje[jugador] = _puntaje[jugador] + puntosGanados(o);
+    _turno = (_turno+1)%(_puntaje.size());
 }
 
 

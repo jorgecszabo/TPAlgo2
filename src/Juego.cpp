@@ -1,7 +1,7 @@
 #include "Juego.h"
 using namespace std;
 
-Juego::Juego(Nat k, const Variante v, const Repositorio& r): _variante(v), _tablero(Tablero (v.tamanoTablero())) {
+Juego::Juego(Nat k, const Fachada_Variante v, const Repositorio& r): _variante(v), _tablero(Tablero (v.tamanoTablero())) {
     _repositorio = r;
     _turno = 0;
     vector<vector<Nat>> fichasXJugador(k);
@@ -136,7 +136,7 @@ IdCliente Juego::turno() {
     return _turno;
 }
 
-const Variante& Juego::variante() {
+const Fachada_Variante& Juego::variante() {
     return _variante;
 }
 

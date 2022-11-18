@@ -11,7 +11,7 @@ Juego::Juego(Nat k, const Variante v, const Repositorio& r): _variante(v), _tabl
         fichasXJugador.push_back(fichas);
     }
     _fichasxJugador = fichasXJugador;
-    vector<int> _puntaje(k);
+    _puntaje = vector<Nat>(k, 0);
     vector<multiset<Letra>> ultReposicion(k, multiset<Letra>());
     _ultimaReposicion = ultReposicion;
     for (int i = 0; i < k; i++) {

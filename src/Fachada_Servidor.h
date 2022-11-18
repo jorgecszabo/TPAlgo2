@@ -64,8 +64,6 @@ public:
 
 private:
     Servidor* _servidor;
-    Juego* _juego;
-    colaNotificaciones _notificaciones;
 };
 
 #endif // FACHADA_SERVIDOR_H

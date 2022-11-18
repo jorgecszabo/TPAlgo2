@@ -191,7 +191,7 @@ bool Juego::esTodaVertical(const Ocurrencia &o) {
         int minFila = filaMin(o);
         int maxFila = filaMax(o);
         while(minFila<maxFila  &&  res){
-            res = _tablero.hayLetra(minFila, col);
+            res = _tablero.hayLetra(col, minFila);
             minFila++;
         }
     }

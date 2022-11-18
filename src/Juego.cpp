@@ -295,7 +295,9 @@ bool Juego::todasLegitimas(const Ocurrencia &o) {
 }
 
 bool Juego::jugadaValida(const Ocurrencia &o, IdCliente cid) {
-    if (o.size() == 0 || o.size() > _variante.palabraMasLarga() || cid != _turno)
+    if (o.size() == 0)
+        return true;
+    if (o.size() > _variante.palabraMasLarga() || cid != _turno)
         return false;
     if (_tablero.celdasLibres(o)) {
         colocarFichas(o);
@@ -308,6 +310,8 @@ bool Juego::jugadaValida(const Ocurrencia &o, IdCliente cid) {
             bool vertical = formaPalabraVertical(*o.begin());
             bool horizontales = todasLegitimas(o);
             res = vertical && horizontales;
+        }  else {
+            res = false;
         }
         quitarFichas(o);
         return res;

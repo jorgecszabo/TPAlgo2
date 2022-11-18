@@ -68,6 +68,7 @@ private:
 
     //Auxiliares
     multiset<Letra> fichasAReponer(int cantidad);
+    bool tieneFichas(const Ocurrencia &o, int cid);
     void colocarFichas(const Ocurrencia &o);
     void quitarFichas(const Ocurrencia &o);
     bool esTodaHorizontal(const Ocurrencia &o);

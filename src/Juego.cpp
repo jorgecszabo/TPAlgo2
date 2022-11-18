@@ -299,7 +299,7 @@ bool Juego::jugadaValida(const Ocurrencia &o, IdCliente cid) {
         return true;
     if (o.size() > _variante.palabraMasLarga() || cid != _turno)
         return false;
-    if (_tablero.celdasLibres(o)) {
+    if (_tablero.celdasLibres(o) && tieneFichas(o, cid)) {
         colocarFichas(o);
         bool res = true;
         if (esTodaHorizontal(o)) {
@@ -370,4 +370,14 @@ multiset<Letra> Juego::fichasAReponer(int cantidad){
 
 const multiset<Letra>& Juego::ultimaReposicion(int cid) {
     return _ultimaReposicion[cid];
+}
+
+bool Juego::tieneFichas(const Ocurrencia &o, int cid) {
+    vector<Nat> fichasJugador = _fichasxJugador[cid];
+    for (auto e : o) {
+        if (fichasJugador[ord(get<2>(e))] == 0)
+            return false;
+        else fichasJugador[ord(get<2>(e))]--;
+    }
+    return true;
 }

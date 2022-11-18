@@ -254,8 +254,8 @@ bool Juego::formaPalabraVertical(tuple<Nat, Nat, Letra> o) {
         palabra.push_back(_tablero.letra(col, fila));
         fila++;
     }
-    col = get<1>(o);
-    col--;
+    fila = get<1>(o);
+    fila--;
     while (fila >= 0 && palabra.size() <= _variante.palabraMasLarga() + 1 && _tablero.hayLetra(col, fila)) {
         palabra.push_front(letra(col, fila));
         fila--;

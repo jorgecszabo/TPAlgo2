@@ -15,8 +15,7 @@ public:
      * la variante, el tablero, etc)
      */
     Servidor(
-        Juego j,
-        colaNotificaciones n
+         Nat k, const Variante& variante, const Repositorio& r
     );
 
     /*

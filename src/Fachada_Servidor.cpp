@@ -5,7 +5,7 @@ Fachada_Servidor::Fachada_Servidor(
 const Fachada_Variante& variante,
 const Repositorio& r
 ){
-_juego = new Juego(cantJugadores, variante, r);
+_juego = new Juego(cantJugadores, variante.nuestraVariante(), r);
 _notificaciones = colaNotificaciones(cantJugadores);
 _servidor = new Servidor(*_juego, r, _notificaciones);
 }

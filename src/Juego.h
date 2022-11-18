@@ -76,7 +76,10 @@ private:
     Nat sumarTodasHorizontales(const Ocurrencia &o);
     Nat sumarTodasVerticales(const Ocurrencia &o);
 
-
+    int colMin(const Ocurrencia &o);
+    int colMax(const Ocurrencia &o);
+    int filaMin(const Ocurrencia &o);
+    int filaMax(const Ocurrencia &o);
 };
 
 #endif //TP_JUEGODEPALABRAS_JUEGO_H

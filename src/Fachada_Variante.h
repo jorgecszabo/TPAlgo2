@@ -52,7 +52,7 @@ private:
         return res;
     };
     string_map convertirDiccionario(const set<vector<Letra>>& palabrasLegitimas) {
-        string_map palLegitimas = string_map(TAMANIO_ALFABETO);
+        string_map palLegitimas = string_map();
         for (Palabra p : palabrasLegitimas)
             palLegitimas.agregar(p);
         return palLegitimas;

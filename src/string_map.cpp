@@ -1,14 +1,12 @@
 #include "string_map.h"
 
-string_map::string_map(){
+string_map::string_map() {
     _raiz = new Nodo(TAMANIO_ALFABETO);
     _size = 0;
-    _tamAlfabeto = TAMANIO_ALFABETO;
     _longPalMasLarga = 0;
-    //CORREGIR : USAR TAMANO ALFABETO
 }
 
-string_map::string_map(const string_map& aCopiar) : string_map(this->_tamAlfabeto) { *this = aCopiar; }
+string_map::string_map(const string_map& aCopiar) : string_map() { *this = aCopiar; }
 
 void string_map::borrarNodo(string_map::Nodo * n) {
     if (n != nullptr) {
@@ -33,7 +31,7 @@ void string_map::agregar(const Palabra& palabra) {
     Nodo* actual = _raiz;
     for (int i = 0; i < palabra.size(); i++) {
         if (actual->siguientes[ord(palabra[i])] == nullptr)
-            actual->siguientes[ord(palabra[i])] = new Nodo(_tamAlfabeto);
+            actual->siguientes[ord(palabra[i])] = new Nodo(TAMANIO_ALFABETO);
         actual = actual->siguientes[ord(palabra[i])];
     }
     if (actual->finPalabra == false)

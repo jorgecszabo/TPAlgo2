@@ -34,7 +34,7 @@ public:
      *
      * Complejidad: O(1)
      */
-    const Fachada_Variante& variante();
+    const Variante& variante();
 
     /**
      * Determina si una jugada es valida o no

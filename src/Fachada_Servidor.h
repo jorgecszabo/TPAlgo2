@@ -22,7 +22,7 @@ public:
         const Fachada_Variante& variante,
         const Repositorio& r
     );
-
+    ~Fachada_Servidor();
     /**
      * Conecta un cliente al servidor y retorna su id de cliente
      *

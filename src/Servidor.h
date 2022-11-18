@@ -16,7 +16,6 @@ public:
      */
     Servidor(
         Juego j,
-        const Repositorio& r,
         colaNotificaciones n
     );
 
@@ -51,12 +50,7 @@ public:
 private:
     Juego _juego;
     Nat _conectados;
-    Repositorio _repInicial;
     colaNotificaciones _notificaciones;
-
-    multiset<Letra> fichasAReponer(int cantidad);
-    Repositorio::iterator _it;
-
-    };
+};
 
 #endif

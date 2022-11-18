@@ -4,13 +4,20 @@ using namespace std;
 Juego::Juego(Nat k, const Variante v, const Repositorio& r): _variante(v), _tablero(Tablero (v.tamanoTablero())) {
     _repositorio = r;
     _turno = 0;
-    vector<vector<Nat>> fichasXJugador(k);
-    for (auto fichas: fichasXJugador) {
-        for (int i = 0; i < TAMANIO_ALFABETO; i++)
-            fichas.push_back(0);
+    _it = _repositorio.begin();
+    vector<vector<Nat>> fichasXJugador;
+    for (int i = 0; i < k; i++) {
+        vector<Nat> fichas(TAMANIO_ALFABETO, 0);
+        fichasXJugador.push_back(fichas);
     }
     _fichasxJugador = fichasXJugador;
-    _puntaje = vector<Nat>(k, 0); 
+    vector<int> _puntaje(k);
+    vector<multiset<Letra>> ultReposicion(k, multiset<Letra>());
+    _ultimaReposicion = ultReposicion;
+    for (int i = 0; i < k; i++) {
+        multiset<Letra> repJugdori = fichasAReponer(_variante.fichas());
+        repartirFichas(repJugdori, i);
+    }
 }
 
 void Juego::ubicar(const Ocurrencia &o) {
@@ -18,8 +25,11 @@ void Juego::ubicar(const Ocurrencia &o) {
         _tablero.ponerLetra(get<0>(l), get<1>(l), get<2>(l));
     }
     int jugador = _turno;
-    _puntaje[jugador] = _puntaje[jugador] + puntosGanados(o);
-    _turno = (_turno+1)%(_puntaje.size());
+    if (o.size() > 0)
+        _puntaje[jugador] = _puntaje[jugador] + puntosGanados(o);
+    quitarFichas(o, jugador);
+    repartirFichas(fichasAReponer(o.size()), jugador);
+    _turno = (_turno + 1) % cantJugadores();
 }
 
 
@@ -331,4 +341,29 @@ Tablero Juego::tablero(){
 
 Repositorio Juego::repositorio(){
     return _repositorio;
+}
+
+void Juego::repartirFichas(multiset<Letra> letras, int cid) {
+    for (Letra l : letras)
+        _fichasxJugador[cid][ord(l)]++;
+    _ultimaReposicion[cid] = letras;
+}
+
+void Juego::quitarFichas(const Ocurrencia &o, int cid) {
+    for (auto l : o)
+        _fichasxJugador[cid][ord(get<2>(l))]--;
+}
+
+multiset<Letra> Juego::fichasAReponer(int cantidad){
+    multiset<Letra> ms;
+    for(int i = 0; i < cantidad; i++){
+        Letra elem = *_it;
+        ms.insert(elem);
+        _it++;
+    }
+    return ms;
+}
+
+const multiset<Letra>& Juego::ultimaReposicion(int cid) {
+    return _ultimaReposicion[cid];
 }

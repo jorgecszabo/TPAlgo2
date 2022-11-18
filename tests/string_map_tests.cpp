@@ -3,12 +3,12 @@
 #include "utils/PalabrasComunes.h"
 #include <set>
 TEST(string_map_test, vacio) {
-	string_map conj(TAMANIO_ALFABETO);
+	string_map conj;
 	EXPECT_TRUE(conj.vacio());
 }
 
 TEST(string_map_test, miniTest) {
-    string_map conj(TAMANIO_ALFABETO);
+    string_map conj;
     conj.agregar({'a', 'b', 'a'});
     conj.agregar({'a'});
     EXPECT_TRUE(conj.pertenece({'a'}));
@@ -24,7 +24,7 @@ TEST(string_map_test, palabras) {
     for (Palabra palabra : palabrasComunes) {
         masLarga = palabra.size() > masLarga ? palabra.size() : masLarga;
     }
-	string_map conj(TAMANIO_ALFABETO);
+	string_map conj;
     set<Palabra> conjRef;
 	for (Palabra palabra : palabrasComunes) {
 		conj.agregar(palabra);
@@ -44,11 +44,11 @@ TEST(string_map_test, palabras) {
 }
 
 TEST(string_map_test, copia) {
-    string_map conj1(TAMANIO_ALFABETO);
+    string_map conj1;
     for (Palabra palabra : palabrasComunes) {
         conj1.agregar(palabra);
     }
-    string_map conj2(TAMANIO_ALFABETO);
+    string_map conj2;
     conj2 = conj1;
     for (Palabra palabra : palabrasComunes) {
         if (conj1.pertenece(palabra))

@@ -12,9 +12,9 @@ class string_map {
 public:
     /**
     CONSTRUCTOR
-    * Construye un conjunto vacio dado el tamaño del alfabeto. Para caracteres ASCII usar 256.
+    * Construye un conjunto vacio dado el tamaño del alfabeto.
     **/
-    string_map(int tam);
+    string_map();
 
     /**
     CONSTRUCTOR POR COPIA
@@ -75,7 +75,6 @@ private:
 
     Nodo* _raiz;
     int _size;
-    int _tamAlfabeto;
     int _longPalMasLarga;
     int cantidadHijos(const Nodo*) const;
     void borrarNodo(Nodo*);

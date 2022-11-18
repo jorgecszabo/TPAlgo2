@@ -7,7 +7,12 @@ const Repositorio& r
 ){
 _juego = new Juego(cantJugadores, variante.nuestraVariante(), r);
 _notificaciones = colaNotificaciones(cantJugadores);
-_servidor = new Servidor(*_juego, r, _notificaciones);
+_servidor = new Servidor(*_juego, _notificaciones);
+}
+
+Fachada_Servidor::~Fachada_Servidor() {
+    delete _servidor;
+    delete _juego;
 }
 
 IdCliente Fachada_Servidor::conectarCliente() {

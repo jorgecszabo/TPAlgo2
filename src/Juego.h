@@ -52,6 +52,10 @@ public:
 
     Repositorio repositorio();
 
+    void repartirFichas(multiset<Letra> fichas, int cid);
+    void quitarFichas(const Ocurrencia& o, int cid);
+    const multiset<Letra>& ultimaReposicion(int cid);
+
 private:
     Tablero _tablero;
     vector<vector<Nat>> _fichasxJugador;
@@ -59,8 +63,11 @@ private:
     const Variante _variante;
     vector<Nat> _puntaje = {0};
     Repositorio _repositorio;
+    Repositorio::const_iterator _it;
+    vector<multiset<Letra>> _ultimaReposicion;
 
     //Auxiliares
+    multiset<Letra> fichasAReponer(int cantidad);
     void colocarFichas(const Ocurrencia &o);
     void quitarFichas(const Ocurrencia &o);
     bool esTodaHorizontal(const Ocurrencia &o);

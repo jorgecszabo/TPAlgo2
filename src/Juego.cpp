@@ -152,24 +152,77 @@ void Juego::quitarFichas(const Ocurrencia &o) {
 
 bool Juego::esTodaHorizontal(const Ocurrencia &o) {
     Ocurrencia::iterator it = o.begin();
-    int actual = get<1>(*it);
+    int fila = get<1>(*it);
     bool res = true;
-    while (it != o.end() && res == true) {
-        res = get<1>(*it) == actual;
+    while (it != o.end() && res) {
+        res = get<1>(*it) == fila;
         ++it;
+    }
+    if(res){
+        int minCol = colMin(o);
+        int maxCol = colMax(o);
+        while(minCol<maxCol  &&  res){
+            res = _tablero.hayLetra(minCol, fila);
+            minCol++;
+        }
     }
     return res;
 }
 
 bool Juego::esTodaVertical(const Ocurrencia &o) {
     Ocurrencia::iterator it = o.begin();
-    int actual = get<0>(*it);
+    int col = get<0>(*it);
     bool res = true;
-    while (it != o.end() && res == true) {
-        res = get<0>(*it) == actual;
+    while (it != o.end() && res) {
+        res = get<0>(*it) == col;
         ++it;
     }
+    if(res){
+        int minFila = filaMin(o);
+        int maxFila = filaMax(o);
+        while(minFila<maxFila  &&  res){
+            res = _tablero.hayLetra(minFila, col);
+            minFila++;
+        }
+    }
     return res;
+}
+
+int Juego::colMin(const Ocurrencia &o){
+    int min = get<0>(*o.begin());
+    for(auto e : o){
+        if(get<0>(e) < min){
+            min = get<0>(e);
+        }
+    }
+    return min;
+}
+int Juego::colMax(const Ocurrencia &o){
+    int max = get<0>(*o.begin());
+    for(auto e : o){
+        if(get<0>(e) > max){
+            max = get<0>(e);
+        }
+    }
+    return max;
+}
+int Juego::filaMin(const Ocurrencia &o){
+    int min = get<1>(*o.begin());
+    for(auto e : o){
+        if(get<1>(e) < min){
+            min = get<1>(e);
+        }
+    }
+    return min;
+}
+int Juego::filaMax(const Ocurrencia &o){
+    int max = get<1>(*o.begin());
+    for(auto e : o){
+        if(get<1>(e) > max){
+            max = get<1>(e);
+        }
+    }
+    return max;
 }
 
 bool Juego::formaPalabraHorizontal(tuple<Nat, Nat, Letra> o) {
@@ -241,7 +294,7 @@ bool Juego::jugadaValida(const Ocurrencia &o, IdCliente cid) {
             bool horizontal = formaPalabraHorizontal(*o.begin());
             bool verticales = todasLegitimas(o);
             res = verticales && horizontal;
-        } else {
+        } else if (esTodaVertical(o)){
             bool vertical = formaPalabraVertical(*o.begin());
             bool horizontales = todasLegitimas(o);
             res = vertical && horizontales;

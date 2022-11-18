@@ -23,6 +23,6 @@ bool Fachada_Variante::palabraLegitima(const Palabra& palabra) const {
     return _variante.palabraLegitima(palabra);
 }
 
-const Variante& Fachada_Variante::nuestraVariante() const {
-    return _variante;
+Nat Fachada_Variante::palabraMasLarga() const{
+    return _variante.palabraMasLarga();
 }

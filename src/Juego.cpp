@@ -10,7 +10,7 @@ Juego::Juego(Nat k, const Variante v, const Repositorio& r): _variante(v), _tabl
             fichas.push_back(0);
     }
     _fichasxJugador = fichasXJugador;
-    vector<int> _puntaje(k);
+    _puntaje = vector<Nat>(k, 0); 
 }
 
 void Juego::ubicar(const Ocurrencia &o) {

@@ -86,7 +86,7 @@ Nat Juego::sumarVertical(const Ocurrencia &o) {
 
     while(fila < _tablero.tamano() && hayLetra(col,fila)){
         res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
-        col++;
+        fila++;
     }
 
     fila = get<1>(*it) - 1;

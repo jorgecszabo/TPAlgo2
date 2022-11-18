@@ -74,7 +74,7 @@ Nat Juego::sumarHorizontal(const Ocurrencia &o){
     }
 
     col = get<0>(*it) - 1;
-    while(0 < col && hayLetra(col,fila)){
+    while(0 <= col && hayLetra(col,fila)){
         res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
         col--;
     }
@@ -94,7 +94,7 @@ Nat Juego::sumarVertical(const Ocurrencia &o) {
     }
 
     fila = get<1>(*it) - 1;
-    while(0 < fila && hayLetra(col,fila)){
+    while(0 <= fila && hayLetra(col,fila)){
         res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
         fila--;
     }
@@ -115,7 +115,7 @@ Nat Juego::sumarTodasHorizontales(const Ocurrencia &o){
         }
 
         col = get<0>(x) - 1;
-        while(0 < col && hayLetra(col,fila)){
+        while(0 <= col && hayLetra(col,fila)){
             res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
             col--;
         }
@@ -138,7 +138,7 @@ Nat Juego::sumarTodasVerticales(const Ocurrencia &o){
         }
 
         fila = get<1>(x) - 1;
-        while(0 < fila && hayLetra(col,fila)){
+        while(0 <= fila && hayLetra(col,fila)){
             res = res + _variante.puntajeLetra(_tablero.letra(col,fila));
             fila--;
         }

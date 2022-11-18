@@ -243,7 +243,7 @@ bool Juego::formaPalabraHorizontal(tuple<Nat, Nat, Letra> o) {
             palabra.push_back(_tablero.letra(col, fila));
             col++;
     }
-    col = get<1>(o);
+    col = get<0>(o);
     col--;
     while (col >= 0 && palabra.size() <= _variante.palabraMasLarga() + 1 && _tablero.hayLetra(col, fila)) {
         palabra.push_front(letra(col, fila));

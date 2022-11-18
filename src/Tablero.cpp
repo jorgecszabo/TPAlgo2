@@ -39,7 +39,7 @@ bool Tablero::celdasLibres(const Ocurrencia& o){
     for(tuple<Nat, Nat, Letra> e : o){
         Nat col = get<0>(e);
         Nat fila = get<1>(e);
-        res = res && get<0>(_tablero[col][fila]);
+        res = res && !get<0>(_tablero[col][fila]);
     }
     return res;
 }

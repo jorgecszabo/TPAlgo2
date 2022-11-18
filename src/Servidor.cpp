@@ -2,7 +2,7 @@
 #include "Notificacion.h"
 #include "colaNotificaciones.h"
 
-Servidor::Servidor(Juego j, colaNotificaciones n) : _juego(j), _notificaciones(n), _conectados(0){
+Servidor::Servidor(Nat k, const Variante& v, const Repositorio& r) : _juego(Juego(k, v, r)), _notificaciones(colaNotificaciones(k)), _conectados(0){
 }
 
 

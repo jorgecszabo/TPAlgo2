@@ -21,20 +21,14 @@ public:
         Nat cantJugadores,
         const Fachada_Variante& variante,
         const Repositorio& r
-    ){
-        _juego = new Juego(cantJugadores, variante.nuestraVariante(), r);
-        _notificaiones = colaNotificaciones(cantJugadores);
-        _servidor = new Servidor(*_juego, r, _notificaiones);
-    };
+    );
 
     /**
      * Conecta un cliente al servidor y retorna su id de cliente
      *
      * Complejidad: O(1)
      */
-    IdCliente conectarCliente() {
-        return _servidor->conectarCliente();
-    };
+    IdCliente conectarCliente();
 
     /**
      * Recibe un mensaje o del cliente id
@@ -43,27 +37,21 @@ public:
      * N ni de K. Puede depender de |Σ|, F, Lmáx y del número de fichas que el jugador pretenda ubicar al
      * enviar este mensaje.
      */
-    void recibirMensaje(IdCliente id, const Ocurrencia& o) {
-        _servidor->recibirMensaje(id, o);
-    };
+    void recibirMensaje(IdCliente id, const Ocurrencia& o);
 
     /**
      * Retorna la cantidad de jugadores necesarios para poder empezar el juego
      *
      * Complejidad: O(1)
      */
-    Nat jugadoresEsperados() {
-        return _servidor->jugadoresEsperados();
-    };
+    Nat jugadoresEsperados();
 
     /**
      * Retorna la cantidad de jugadores necesarios para poder empezar el juego
      *
      * Complejidad: O(1)
      */
-    Nat jugadoresConectados() {
-        return _servidor->jugadoresConectados();
-    };
+    Nat jugadoresConectados();
 
     /**
      * Consulta y vacia la cola de notificaciones del cliente id
@@ -72,14 +60,12 @@ public:
      *   donde n es la cantidad de mensajes sin consultar de dicho cliente
      *   y F es la cantidad de fichas por jugador de la variante.
      */
-    std::list<Notificacion> notificaciones(IdCliente id) {
-        return _servidor->notificaciones(id);
-    };
+    std::list<Notificacion> notificaciones(IdCliente id);
 
 private:
     Servidor* _servidor;
     Juego* _juego;
-    colaNotificaciones _notificaiones;
+    colaNotificaciones _notificaciones;
 };
 
 #endif // FACHADA_SERVIDOR_H

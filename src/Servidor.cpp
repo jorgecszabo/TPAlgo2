@@ -49,6 +49,6 @@ list<Notificacion> Servidor::notificaciones(IdCliente id){
     return _notificaciones.notifJugador(id);
 }
 
-Juego Servidor::juego(){
+const Juego& Servidor::juego(){
     return _juego;
 }

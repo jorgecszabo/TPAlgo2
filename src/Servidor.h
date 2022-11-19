@@ -35,7 +35,6 @@ public:
 
     /*
      * Retorna la cantidad de jugadores necesarios para poder empezar el juego
-
      */
     Nat jugadoresConectados();
 
@@ -44,7 +43,10 @@ public:
      */
     list<Notificacion> notificaciones(IdCliente id);
 
-    Juego juego();
+    /*
+    * Retorna una referencia a juego.
+    */
+    const Juego& juego();
 
 private:
     Juego _juego;

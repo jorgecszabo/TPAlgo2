@@ -45,15 +45,20 @@ public:
     /*  Complejidad: O(1)  */
     Nat cantFicha(IdCliente id, Letra l);
 
+    /* Devuelve la cantidad de jugadores. */
+    /*  Complejidad: O(1)  */
     Nat cantJugadores();
 
     /* Devuelve el tablero del juego. */
+    /*  Complejidad: O(1)  */
     Tablero tablero();
 
-    Repositorio repositorio();
+    /* Devuelve el repositorio del juego. */
+    /*  Complejidad: O(1)  */
+    const Repositorio& repositorio();
 
-    void repartirFichas(multiset<Letra> fichas, int cid);
-    void quitarFichas(const Ocurrencia& o, int cid);
+    /* Devuelve un multiconjunto con la última reposision del jugador cid. */
+    /*  Complejidad: O(1)  */
     const multiset<Letra>& ultimaReposicion(int cid);
 
 private:
@@ -67,6 +72,8 @@ private:
     vector<multiset<Letra>> _ultimaReposicion;
 
     //Auxiliares
+    void repartirFichas(multiset<Letra> fichas, int cid);
+    void quitarFichas(const Ocurrencia& o, int cid);
     multiset<Letra> fichasAReponer(int cantidad);
     bool tieneFichas(const Ocurrencia &o, int cid);
     void colocarFichas(const Ocurrencia &o);

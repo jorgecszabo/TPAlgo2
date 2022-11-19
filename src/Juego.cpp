@@ -347,7 +347,7 @@ Tablero Juego::tablero(){
     return _tablero;
 }
 
-Repositorio Juego::repositorio(){
+const Repositorio& Juego::repositorio(){
     return _repositorio;
 }
 
